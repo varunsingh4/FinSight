@@ -3,7 +3,6 @@ dotenv.config({ path: __dirname + '/../.env' });
 
 const connectDB = require('./config/db');
 connectDB();
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -13,11 +12,18 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
-const transactionRoutes = require('./src/routes/transactionRoutes');
-const userRoutes = require('./src/routes/userRoutes');
+const authRoutes = require('./routes/AuthRoutes')
+const userRoutes = require('./routes/UserRoutes');
+const transactionRoutes = require('./routes/TransactionRoutes');
 
-app.use('/api/transactions', transactionRoutes);
+app.use((req, res, next) => {
+    console.log(`[DEBUG] ${req.method} ${req.url}`);
+    next();
+  });
+
+app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/transactions', transactionRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5051;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
