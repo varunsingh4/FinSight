@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const protect = require('../middlewares/authMiddleware');
+
+// Apply middleware globally
+router.use(protect);
 
 // PUT /api/users/:id/risk-profile
 router.put('/:id/risk-profile', async (req, res) => {

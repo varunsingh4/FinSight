@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
-const authRoutes = require('./routes/AuthRoutes')
+const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/UserRoutes');
 const transactionRoutes = require('./routes/TransactionRoutes');
 
